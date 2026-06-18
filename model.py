@@ -6,12 +6,20 @@ from pydantic import BaseModel
 from schemas import input_schema, output_schema
 from schemas.input_schema import DietRecommendationRequest
 from schemas.output_schema import DietRecommendationResponse, FoodRecommendation
+import os
 app = FastAPI()
 
+
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+
 # Load data
-df = pd.read_excel("food_600.xlsx")
+df = pd.read_excel(os.path.join(BASE_DIR, "food_600.xlsx"))
 df["meal_type"] = df["meal_type"].str.lower().str.strip()
 df["diet_type"] = df["diet_type"].str.lower().str.strip()
+
+
 
 
 # Core Calculations
